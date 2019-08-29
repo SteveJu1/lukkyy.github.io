@@ -1,24 +1,32 @@
 ---
 layout:     post
-title:      "Java 中的IO流（Stream） "
+title:      "Java中的IO流与File类 "
 date:       2016-12-16 
 categories: Java
 tags: Java 
 ---
 
-​      在Java中按照读取/输出数据的长度可以分为字节流和字符流，字节流是按照一个字节一个字节的读取的；字符流是按照字符读取的，在Java中字节是8bit，字符的长度中文是两个字节，英文是一个字节。
+​      在Java中按照读取/输出数据的长度可以分为**字节流和字符流**，字节流是按照一个字节一个字节的读取的；字符流是按照字符读取的。可以分为**输入流和输出流**。InputStream（字节输入流），OutputStream（字节输出流）；Reader（字符输入流），Write（字符输出流）；其他所有流都是这4个抽象类的子类。
 
 
 
 
+
+
+
+## IO流
+
+下面画了Java中流的继承关系图。
+
+![](https://lukkyy.github.io/assets/java/basic/IO流.png)
+
+> Java字符若是Unicode编码，字符长度是两个字节
 
 
 
 常用到的流有以下几种，字符流有：FileReader，InputStreamReader，BufferReader 等
 
-字节流有：FileInputStream，DataInputStream，ByteArrayInputStream，BufferedIutputSteam，printStream 等，下面画了Java中流的继承关系图。
-
-![](https://lukkyy.github.io/assets/java/basic/IO流.png)
+字节流有：FileInputStream，DataInputStream，ByteArrayInputStream，BufferedIutputSteam，printStream 等，
 
 （通过API文档统计的所有IO流，有些流不是输入输出流都有。知道原因的麻烦告诉我哈）
 
@@ -128,11 +136,13 @@ public class IOStream {
 
 ```
 
-## **Java中File操作与File流**
 
-###   一 、File
 
-   Java中的File对象代表的是电脑中实际存在的**文件和目录**。
+## File操作与File流
+
+###   一 、File操作
+
+   Java中的File对象代表的是文件和目录。
 
 ​    File对象创建成功后，可以使用方法操作文件,
 
