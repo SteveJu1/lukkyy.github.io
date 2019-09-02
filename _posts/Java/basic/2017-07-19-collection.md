@@ -22,17 +22,15 @@ tags:  Java
 
   Collection集合有3个子类接口，分别是
 
-- List，List集合中元素是有序的，可重复
-  - ArrayList
-  - LikedList
-- Set，元素是无序的，不可重复
-  - HashSet，（是一个HashMap的实例）
-  - TreeSet，映射关系有一定的顺序
+- List，List集合中元素放入是**有顺序的**(先放入的在前面)，**可重复**, List主要有ArrayList、LinkedList与Vector几种实现
+- Set，数据是无序的，**不可重复**
+  - HashSet，HashMap的实现，可以但只能放入一个null
+  - TreeSet，是红黑树实现的,Treeset中的数据是自动排好序的，不允许放入null值 
 - Queue
 
 #### List
 
-​     下有两个实现类：**ArrayList**(动态数组存储的，查询效率高，插入删除效率低)；**LikedList**（链表存储，查询效率低，插入删除效率高）
+​     下有两个实现类：**ArrayList**可改变大小的数组，查询效率高,可以直接通过get与set方法进行访问，插入删除效率低)；**LikedList**（链表存储，查询效率低，插入删除效率高）
 
 遍历方法有三种：
 

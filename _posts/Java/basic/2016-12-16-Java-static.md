@@ -14,8 +14,10 @@ tags: Java
 
 在Java中在定义的方法前加关键字 static，就可以创建一个静态方法
 
-```
-public static void print(){System.Output.print(“hello kitty”)}
+```java
+public static void print(){
+    System.Output.print(“hello kitty”)
+}
 ```
 
 
