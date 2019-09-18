@@ -37,15 +37,13 @@ tags:  Java
 ```java
 //    1.for循环
 for(int i=0;i<list.size(),i++)
-{
     system.out.printf(list.get(i));
-}
+
 // 下面两种遍历方法，集合都能用
 //2.增强的for循环
 for(object item：list)
-{
     system.out.printf((String)item);
-}
+
 //3.迭代器循环
 Iterator iterator= list.iterator();
 while(iterator.hasNext){
