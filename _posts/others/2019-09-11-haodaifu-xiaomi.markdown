@@ -88,7 +88,7 @@ tags: Blog
 
    树：树结构查找效率高，可达到O(logn)，还可以保持有序。
    
-4. B-树
+4. B树
 
    考虑到 磁盘IO ，B数的查找效率更高 
 
@@ -186,3 +186,9 @@ class Chenmo {
 
 首先来介绍`AtomicInteger`。`java.util.concurrent.atomic.AtomicInteger` 是一个提供原子操作的 Integer 类，利用CPU提供的CAS操作来保证原子性；
 
+
+
+```
+System.out.println(3|9);  
+11 //（二进制）
+```

@@ -22,30 +22,32 @@ tags:  Java
 
   Collection集合有3个子类接口，分别是
 
-- List，List集合中元素放入是**有顺序的**(先放入的在前面)，**可重复**, List主要有ArrayList、LinkedList与Vector几种实现
-- Set，数据是无序的，**不可重复**
-  - HashSet，HashMap的实现，可以但只能放入一个null
-  - TreeSet，是红黑树实现的,Treeset中的数据是自动排好序的，不允许放入null值 
-- Queue
+---
+
+**List**，元素是有序的，可以重复, List主要有ArrayList、LinkedList与Vector几种实现
+
+**Set**，元素是无序的，不可重复
+
+HashSet，HashMap的实现，可以但只能放入一个null;TreeSet，是红黑树实现的,Treeset中的数据是自动排好序的，不允许放入null值 
+
+**Queue**
+
+---
 
 #### List
 
-​     下有两个实现类：**ArrayList**可改变大小的数组，查询效率高,可以直接通过get与set方法进行访问，插入删除效率低)；**LikedList**（链表存储，查询效率低，插入删除效率高）
+​     下有两个实现类：**ArrayList**查询效率高,可以直接通过get与set方法进行访问，插入删除效率低)；**LikedList**查询效率低，插入删除效率高
+
+> 底层数据结构:ArrayList是动态数组，LinkedList 是双向链表; Vector 线程安全，ArrayList不安全
 
 遍历方法有三种：
 
 ```java
-//    1.for循环
-for(int i=0;i<list.size(),i++)
+for(int i=0;i<list.size(),i++) //    1.for循环
     system.out.printf(list.get(i));
-
-// 下面两种遍历方法，集合都能用
-//2.增强的for循环
-for(object item：list)
+for(object item：list)//2.foreach
     system.out.printf((String)item);
-
-//3.迭代器循环
-Iterator iterator= list.iterator();
+Iterator iterator= list.iterator();//3.迭代器循环
 while(iterator.hasNext){
    object item =iterator.next();
    system.out.printf((String)item);

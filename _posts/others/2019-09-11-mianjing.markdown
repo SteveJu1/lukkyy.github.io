@@ -140,27 +140,39 @@ Java中HashMap和TreeMap的区别？
 
 定义：是存储Key-Value键值对的集合，用来通过Key来查找Value的数据结构。
 
-应用：Hash在存储数据时，利用hash函数计算Key对应的索引位置，把key-value放在索引位置。由于HashMap的长度有限，同一索引位置有多个元素的话，会排成链表的形式（新节点插在头部）。
+应用：Hash在存储数据时，利用hash函数计算Key对应的索引位置，把key-value放在索引位置。由于HashMap的长度有限，同一索引位置有多个元素的话，会排成链表的形式（拉链法，新节点插在头部）。
 
-原理：。线程不安全，多线程访问会是数据出错，可以使用ConcurrentHashMap保证线程安全。
+原理：线程不安全，多线程访问会是数据出错，可以使用ConcurrentHashMap保证线程安全。
 
-Hash算法：取hash值，高位16位低16位异或运算，在取模运算。
+Hash算法：
+
+```
+static final int hash(Object key) {
+int h;
+// key.hashCode()：返回散列值也就是hashcode
+// ^ ：按位异或
+// >>>:无符号右移，忽略符号位，空位都以0补齐 右移16位做异或运算
+return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+} 
+```
 
 扩容机制：数组满了后，新建一个容量大的数组放小数组（）
 
-> 允许有一个key为null；散列桶（数组和链表）；底层实现上用的：数组+链表+红黑树（链表长度超过8时转成红黑树）；函数put（key，value），getkey（key）返回value；   初始长度：16，2倍2倍的扩展 ，使得Hash算法（位运算）的结果更加均匀；  为什么会死锁？
+> 允许有一个key为null；散列桶（数组和链表）；
+> 底层实现上用的：数组+链表+红黑树（链表长度超过8时转成红黑树）；
+> 函数put（key，value），getkey（key）返回value；   
+> 初始长度16;   按2的幂次方扩展,使得Hash函数得到的结果分布更加均匀；在实现上数组的长度位与运算取模得到的，代码： (n - 1) & hash
+> 方法是 ；  为什么会死锁？
+>
+> HashMap线程不安全，存在丢失数据的情况，扩容复制时形成闭环，死循环；
+>
+> HashTable安全，但被淘汰了，可用concurrenthashmap
 
-### ConcurrentHashMap的实现原理
+#### ConcurrentHashMap的实现原理
 
-HashMap在多线程`进行`put`操作时存在丢失数据的情况，
+在1.8版本以前，`ConcurrentHashMap`采用分段锁实现，JDK1.8之后取而代之的是采用`Node` + `CAS` + `Synchronized`来保证并发使用的安全，底层采用数组+链表+红黑树的存储结构，和HashMap一样。
 
-在1.8版本以前，`ConcurrentHashMap`采用分段锁实现，
-
-取而代之的是采用`Node` + `CAS` + `Synchronized`来保证并发更新的安全，底层采用数组+链表+红黑树的存储结构。
-
-在ConcurrentHashMap中如果链表的数据过长是会转换为红黑树来处理
-
-ConcurrentHashMap的key、value都不允许为null
+> 分段锁: 将数组分成一段一段；每一段数据配一把锁，只让一个线程访问，其他段的数据可以被其他线程访问。 
 
 
 
@@ -176,3 +188,54 @@ ConcurrentHashMap的key、value都不允许为null
 
 一致性哈希将整个哈希值空间组织成一个虚拟的圆环
 
+
+
+**synchronized 关键字** 
+
+做什么的？ 被它修饰的方法在任意时刻只能有一个线程执行 ，保证了多线程访问资源的同步性。
+
+实现：早期版本属于重量级锁，依靠底层操作系统实现的，由于操作系统线程切换要从用户态转内核态，效率低 。改进：从JVM层面做了优化，比如加了 自旋锁，轻量级锁等。
+
+使用场景：
+
+修饰实例方法，给当前对象实例加锁 
+
+修饰静态方法，给当前类加锁，会作用于类的所有对象实例 ，
+
+
+
+双重校验锁实现对象单例（线程安全） 
+
+volatile 关键字的主要作用就是保证变量的可见性然后还有一个作用是防止指令重排序 
+
+说说 synchronized 关键字和 volatile 关键字的区别 
+
+volatile关键字是轻量级实现，所以volatile性能肯定要好 ；volatile只能用于变量，而synchronized可以修饰方法以及代码块 ；volatile保证多线程之间的可见性 ，不保证原子性 ，而 synchronized关键字解决的是多个线程之间访问资源的同步性。 
+
+线程池 
+
+降低资源消耗。 通过重复利用已创建的线程降低线程创建和销毁造成的消耗。
+提高响应速度。 当任务到达时，任务可以不需要的等到线程创建就能立即执行。
+提高线程的可管理性。 线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，
+使用线程池可以进行统一的分配，调优和监控 
+
+
+
+**Atomic 原子类** 
+
+Atomic 是指一个操作是不可中断的。即使是在多个线程一起执行的时候，一个操作一旦开始，就不会被其他线程干扰。 
+
+原子类说简单点就是具有原子/原子操作特征的类 
+
+java.util.concurrent 的原子类都存放在 java.util.concurrent.atomic  
+
+基本类型 
+
+AtomicInteger：整形原子类
+AtomicLong：长整型原子类 
+
+讲讲 AtomicInteger 的使用 
+
+
+
+AtomicInteger 类的原理 

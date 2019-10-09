@@ -3,10 +3,10 @@ layout:     post
 title:      "Java中错误与异常机制 "
 date:       2017-04-06 
 categories: Java
-tags: Java 异常机制
+tags: Java基础
 ---
 
-​         Java中出错的情况分两种：异常（Exception）和错误（Error）。我们可以通过下面这张图来理解Java中异常和错误体系。
+​         Java中出错的情况分两种：Exception和Error。我们可以通过下面这张图来理解Java中异常和错误体系。
 
 ![java中异常和错误体系](https://lukkyy.github.io/assets/java/basic/Throwable.png)	
 
@@ -18,20 +18,14 @@ tags: Java 异常机制
 
 错误和异常都继承于Throwable 父类
 
-​         **Error（错误）**：一般是和java虚拟机相关的问题，比如内存溢出、系统崩溃，一般的开发人员无法解决这些错误。
-​         **Exception（异常） **：异常主要是指程序的语法语义错误，是我们开发时常说的Bug，异常可以由开发者解决。Note：异常又分为checked异常（编译时异常）和**Runtime异常**（运行时异常）两种。RuntimeException包括我们很熟悉的 NullPointerException（空指针异常）、IndexOutOfBoundsException（索引越界）、ArithmeticException（算术异常，比如除零）
+​         **Error（错误）**：一般是java虚拟机相关的问题，比如内存溢出、系统崩溃。
+​         **Exception（异常） **：异常主要是指程序的语法语义错误，是我们开发时常说的Bug，异常可以由开发者解决。Note：异常又分为checkedException（编译时异常）和**RuntimeException**（运行时异常）两种。
+
+checkedException：要加try catch，比如读取文件流的时候，可能会在文件的结尾读数据
 
 
 
----
-
-```java
-在类实例化时运行	
-static String str = "test";  //
-static {                     //静态块
-		System.out.println("hello");
-	}	
-```
+> RuntimeException有： NullPointerException（空指针异常）、IndexOutOfBoundsException（索引越界）、ArithmeticException（算术异常，比如除零），出现RuntimeException 是程序员的错误
 
 #### 1. 错误
 
@@ -45,7 +39,7 @@ private Student stu = new Student();
 
 #### **2. 异常机制**
 
-异常机制就是对可能出现的错误进行处理的机制：
+异常机制：对可能出现的错误进行处理
 
 五个关键字：try、catch、finally、throw、throws。
 
@@ -116,3 +110,7 @@ public class Student {
 
 ```
 
+
+
+> throw用在函数内，抛出具体的问题，后面的代码不会持续
+> throws用在函数上，抛出异常类，表示出现异常的可能，不一定发生。
