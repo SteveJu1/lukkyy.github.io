@@ -12,6 +12,8 @@ System.in System.out 输出，输出模板
 
 
 
+StringBuffer,StringBuilder类，toCharArray
+
 
 
 ```java

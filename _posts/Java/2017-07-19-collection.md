@@ -36,9 +36,11 @@ HashSet，HashMap的实现，可以但只能放入一个null;TreeSet，是红黑
 
 #### List
 
-​     下有两个实现类：**ArrayList**查询效率高,可以直接通过get与set方法进行访问，插入删除效率低)；**LikedList**查询效率低，插入删除效率高
+   ArrayList:是动态数组,数组按下标随机访问的时间复杂度O（1），
 
-> 底层数据结构:ArrayList是动态数组，LinkedList 是双向链表; Vector 线程安全，ArrayList不安全
+   LikedList: 是双向链表，
+
+> 底层数据结构:，; Vector 线程安全，ArrayList不安全
 
 遍历方法有三种：
 
@@ -65,3 +67,4 @@ Map(映射)是有两个集合构成的，**Key（键）集合和Value（值）�
 Map常用的实现类有HashMap（哈希表）和TreeMap
 
 HashMap：键，值可以为null
+
